@@ -1,0 +1,37 @@
+{
+  "name": "mishmeret-layla",
+  "version": "1.0.0",
+  "description": "משמרת לילה — משחק יריות על מסילה בדפדפן",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "assets": "node tools/build-assets.mjs",
+    "credits": "node tools/gen-credits.mjs",
+    "verify": "node tools/verify.mjs"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "module",
+  "dependencies": {
+    "@fontsource/rubik": "^5.3.0",
+    "@fontsource/secular-one": "^5.3.0",
+    "three": "^0.187.0"
+  },
+  "devDependencies": {
+    "@gltf-transform/cli": "^4.5.1",
+    "@gltf-transform/core": "^4.5.1",
+    "@gltf-transform/extensions": "^4.5.1",
+    "@gltf-transform/functions": "^4.5.1",
+    "ffmpeg-static": "^5.3.0",
+    "meshoptimizer": "^1.3.0",
+    "playwright": "^1.64.1",
+    "sharp": "^0.35.5",
+    "vite": "^8.3.5"
+  },
+  "allowScripts": {
+    "ffmpeg-static@5.3.0": true
+  },
+  "private": true
+}

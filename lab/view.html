@@ -1,0 +1,36 @@
+<!doctype html><html><body style="margin:0;background:#888"><script type="module">
+import * as THREE from 'three';
+import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
+import { FBXLoader } from 'three/examples/jsm/loaders/FBXLoader.js';
+import { MeshoptDecoder } from 'three/examples/jsm/libs/meshopt_decoder.module.js';
+import { RoomEnvironment } from 'three/examples/jsm/environments/RoomEnvironment.js';
+const q = new URLSearchParams(location.search);
+const files = q.get('f').split('|');
+const r = new THREE.WebGLRenderer({ antialias: true, preserveDrawingBuffer: true });
+r.setSize(innerWidth, innerHeight); r.toneMapping = THREE.ACESFilmicToneMapping; document.body.appendChild(r.domElement);
+const scene = new THREE.Scene(); scene.background = new THREE.Color(0x9ab);
+scene.environment = new THREE.PMREMGenerator(r).fromScene(new RoomEnvironment(), 0.04).texture;
+const sun = new THREE.DirectionalLight(0xffffff, 2); sun.position.set(3, 5, 4); scene.add(sun);
+const cols = Math.ceil(Math.sqrt(files.length));
+const gl = new GLTFLoader().setMeshoptDecoder(MeshoptDecoder), fl = new FBXLoader();
+let maxS = 0; const objs = [];
+for (const f of files) {
+  try {
+    const o = f.endsWith('.fbx') ? await fl.loadAsync(f) : (await gl.loadAsync(f)).scene;
+    const anim = q.get('pose');
+    let b = new THREE.Box3().setFromObject(o); let s = b.getSize(new THREE.Vector3());
+    if (q.get('norm')) { o.scale.multiplyScalar(1 / Math.max(s.x, s.y, s.z)); o.updateMatrixWorld(true); b = new THREE.Box3().setFromObject(o); s = b.getSize(new THREE.Vector3()); }
+    maxS = Math.max(maxS, s.x, s.y, s.z); objs.push([o, b]);
+  } catch (e) { console.log('ERR', f, e.message); }
+}
+objs.forEach(([o, b], i) => {
+  const c = b.getCenter(new THREE.Vector3());
+  o.position.sub(c).add(new THREE.Vector3((i % cols) * maxS * 1.2, -Math.floor(i / cols) * maxS * 1.2, 0));
+  o.position.y += 0; scene.add(o);
+});
+const box = new THREE.Box3().setFromObject(scene); const ctr = box.getCenter(new THREE.Vector3()); const sz = box.getSize(new THREE.Vector3()).length();
+const cam = new THREE.PerspectiveCamera(35, innerWidth / innerHeight, 0.01, 1000);
+const yaw = +(q.get('yaw') || 0.5);
+cam.position.copy(ctr).add(new THREE.Vector3(Math.sin(yaw), 0.35, Math.cos(yaw)).multiplyScalar(sz * 1.15)); cam.lookAt(ctr);
+r.render(scene, cam); window.DONE = true;
+</script></body></html>

@@ -1,0 +1,10 @@
+import { chromium } from 'playwright';
+import { createServer } from 'vite';
+const [out, file, anims, ry = '0.4'] = process.argv.slice(2);
+const server = await createServer({ logLevel: 'error', server: { port: 5198 } }); await server.listen();
+const b = await chromium.launch({ args: ['--use-gl=angle', '--use-angle=swiftshader', '--enable-unsafe-swiftshader'] });
+const p = await b.newPage({ viewport: { width: 1400, height: 800 } });
+p.on('console', m => console.log('console:', m.text()));
+await p.goto(`http://localhost:5198/mishmeret-layla/lab/anim.html?f=${encodeURIComponent('/mishmeret-layla/@fs' + file)}&j=/mishmeret-layla/assets/anims/ual.json&a=${encodeURIComponent(anims)}&ry=${ry}`);
+await p.waitForFunction(() => window.DONE, null, { timeout: 180000 });
+await p.screenshot({ path: out }); await b.close(); await server.close();

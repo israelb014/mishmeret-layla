@@ -1,0 +1,32 @@
+<!doctype html><html><body style="margin:0;background:#888"><script type="module">
+import * as THREE from 'three';
+import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
+import { MeshoptDecoder } from 'three/examples/jsm/libs/meshopt_decoder.module.js';
+import * as SkeletonUtils from 'three/examples/jsm/utils/SkeletonUtils.js';
+import { RoomEnvironment } from 'three/examples/jsm/environments/RoomEnvironment.js';
+const q = new URLSearchParams(location.search);
+const list = q.get('a').split(',');            // "clip@t,clip@t"
+const r = new THREE.WebGLRenderer({ antialias: true, preserveDrawingBuffer: true });
+r.setSize(innerWidth, innerHeight); document.body.appendChild(r.domElement);
+const scene = new THREE.Scene(); scene.background = new THREE.Color(0x99aabb);
+scene.environment = new THREE.PMREMGenerator(r).fromScene(new RoomEnvironment(), 0.04).texture;
+const g = await new GLTFLoader().setMeshoptDecoder(MeshoptDecoder).loadAsync(q.get('f'));
+const extra = q.get('j') ? Object.values(await (await fetch(q.get('j'))).json()).map(c => THREE.AnimationClip.parse(c)) : [];
+const clips = [...g.animations, ...extra];
+const cols = Math.min(list.length, 6);
+list.forEach((s, i) => {
+  const [name, t] = s.split('@');
+  const o = SkeletonUtils.clone(g.scene);
+  const h = +(q.get('h') || 1.82);
+  o.scale.setScalar(1.8 / h); o.traverse(m => { if (m.isMesh) m.frustumCulled = false; }); console.log('h', h);
+  const clip = clips.find(c => c.name === name || c.name.endsWith('|' + name));
+  if (!clip) console.log('missing', name);
+  else { const m = new THREE.AnimationMixer(o); m.clipAction(clip).play(); m.setTime(+t * clip.duration); }
+  o.position.set((i % cols) * 1.6, -Math.floor(i / cols) * 2.4, 0); o.rotation.y = +(q.get('ry') || 0.4);
+  scene.add(o);
+});
+scene.updateMatrixWorld(true); const box = new THREE.Box3(); scene.traverse(b => { if (b.isBone) box.expandByPoint(b.getWorldPosition(new THREE.Vector3())); }); const c = box.getCenter(new THREE.Vector3()); const sz = box.getSize(new THREE.Vector3());
+const cam = new THREE.PerspectiveCamera(30, innerWidth / innerHeight, 0.1, 100);
+cam.position.set(c.x, c.y + 0.5, c.z + Math.max(sz.x, sz.y * 1.5) * 1.9); cam.lookAt(c);
+console.log('box', JSON.stringify(box)); r.render(scene, cam); window.DONE = true;
+</script></body></html>

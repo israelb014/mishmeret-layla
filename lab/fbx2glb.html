@@ -1,0 +1,32 @@
+<!doctype html><html><body><script type="module">
+import * as THREE from 'three';
+import { FBXLoader } from 'three/examples/jsm/loaders/FBXLoader.js';
+import { OBJLoader } from 'three/examples/jsm/loaders/OBJLoader.js';
+import { MTLLoader } from 'three/examples/jsm/loaders/MTLLoader.js';
+import { GLTFExporter } from 'three/examples/jsm/exporters/GLTFExporter.js';
+window.convert = async (url) => {
+  let obj;
+  if (url.endsWith('.obj')) {
+    const mtl = await new MTLLoader().loadAsync(url.replace(/\.obj$/, '.mtl')).catch(() => null);
+    const l = new OBJLoader(); if (mtl) { mtl.preload(); l.setMaterials(mtl); }
+    obj = await l.loadAsync(url);
+  } else obj = await new FBXLoader().loadAsync(url);
+  obj.animations = [];
+  obj.traverse(o => {
+    if (o.isMesh) {
+      const mats = Array.isArray(o.material) ? o.material : [o.material];
+      o.material = mats.map(m => {
+        const s = new THREE.MeshStandardMaterial({ name: m.name, color: m.color ? m.color.clone() : 0xffffff, map: m.map || null, roughness: 0.7, metalness: 0.1, vertexColors: !!m.vertexColors, transparent: m.opacity < 1, opacity: m.opacity });
+        if (/glass|window/i.test(m.name)) { s.roughness = 0.1; s.metalness = 0.3; }
+        return s;
+      });
+      if (o.material.length === 1) o.material = o.material[0];
+    }
+  });
+  const box = new THREE.Box3().setFromObject(obj); const size = box.getSize(new THREE.Vector3());
+  const glb = await new GLTFExporter().parseAsync(obj, { binary: true });
+  let s = ''; const u8 = new Uint8Array(glb); for (let i = 0; i < u8.length; i += 8192) s += String.fromCharCode.apply(null, u8.subarray(i, i + 8192));
+  return { b64: btoa(s), size: size.toArray() };
+};
+window.READY = true;
+</script></body></html>
