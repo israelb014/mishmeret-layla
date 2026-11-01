@@ -34,13 +34,13 @@ export const PREFABS = {
   // vehicles
   car_cop: { lib: 'vehicles', size: { l: 4.6 } }, car_sedan: { lib: 'vehicles', size: { l: 4.7 } }, car_hatch: { lib: 'vehicles', size: { l: 4.0 } },
   car_sport: { lib: 'vehicles', size: { l: 4.5 } }, car_sport2: { lib: 'vehicles', size: { l: 4.5 } }, car_suv: { lib: 'vehicles', size: { l: 4.8 } },
-  car_taxi: { lib: 'vehicles', size: { l: 4.7 } }, bus: { lib: 'vehicles', size: { l: 12 }, rotY: Math.PI / 2 },
+  car_taxi: { lib: 'vehicles', size: { l: 4.7 } }, bus: { lib: 'vehicles', size: { l: 12 }, rotY: Math.PI / 2, scale3: [0.52, 0.66, 1] },
   van: { lib: 'vehicles', size: { l: 5.2 } }, delivery: { lib: 'vehicles', size: { l: 6.4 } }, truck_k: { lib: 'vehicles', size: { l: 5.6 } },
   truck_box: { lib: 'vehicles', size: { l: 7.5 } }, garbage: { lib: 'vehicles', size: { l: 7 } }, loader: { lib: 'vehicles', size: { l: 4.2 } },
   // port
   cont_a: { lib: 'port', size: { l: 12.2 }, scale3: [0.445, 0.5, 1] }, cont_b: { lib: 'port', size: { l: 12.2 }, scale3: [0.445, 0.5, 1] }, cont_c: { lib: 'port', size: { l: 12.2 }, scale3: [0.445, 0.5, 1] }, cont_q: { lib: 'port', size: { l: 6.1 } },
   ship_cargo: { lib: 'port', size: { l: 120 }, scale3: [0.62, 0.55, 1] }, ship_cargo_b: { lib: 'port', size: { l: 120 }, scale3: [0.62, 0.55, 1] }, ship_large: { lib: 'port', size: { l: 90 } },
-  tug: { lib: 'port', size: { l: 18 } }, buoy: { lib: 'port', size: { h: 2.5 } }, cargo_pile: { lib: 'port', size: { l: 4 } }, boat: { lib: 'port', size: { l: 9 } },
+  tug: { lib: 'port', size: { l: 18 } }, buoy: { lib: 'port', size: { h: 2.5 } }, cargo_pile: { lib: 'port', size: { h: 1.15 } }, boat: { lib: 'port', size: { l: 9 } },
   crane_k: { lib: 'port', size: { h: 12 } }, struct_tall: { lib: 'port', size: { h: 30 } }, struct_high: { lib: 'port', size: { h: 22 } },
   catwalk: { lib: 'port', size: { l: 3 } }, catwalk_stairs: { lib: 'port', size: { l: 5 } }, box_factory: { lib: 'port', size: { l: 2 } },
   warning: { lib: 'port', size: { h: 1.2 } }, tank_large: { lib: 'port', size: { h: 9 } }, chimney: { lib: 'port', size: { h: 16 } },
@@ -49,7 +49,7 @@ export const PREFABS = {
   // station
   train_city: { lib: 'station', size: { l: 18 }, scale3: [0.45, 0.3, 1] }, train_city_a: { lib: 'station', size: { l: 18 }, scale3: [0.45, 0.35, 1] }, tram: { lib: 'station', size: { l: 18 }, scale3: [0.55, 0.6, 1] },
   train_q: { lib: 'station', size: { l: 20 }, scale3: [0.55, 0.6, 1] }, track: { lib: 'station', size: { l: 4 } }, rail: { lib: 'station', size: { l: 8 } },
-  ticket: { lib: 'station', size: { h: 1.7 } }, rail_guard: { lib: 'station', size: { l: 3 } }, stairs_rail: { lib: 'station', size: { l: 3 } },
+  ticket: { lib: 'station', size: { h: 1.7 }, scale3: [0.42, 1, 0.55] }, rail_guard: { lib: 'station', size: { l: 3 } }, stairs_rail: { lib: 'station', size: { l: 3 } },
   pillar: { lib: 'station', size: { h: 5.5 } }, bench_metal: { lib: 'station', size: { h: 1.0 } }, display: { lib: 'station', size: { l: 2.4 } },
   stairs: { lib: 'station', size: { h: 5 } }, flatbed: { lib: 'station', size: { l: 16 }, scale3: [0.55, 0.25, 1] }, wagon: { lib: 'station', size: { l: 16 }, scale3: [0.75, 0.6, 1] },
   loco: { lib: 'station', size: { l: 18 }, scale3: [0.75, 0.7, 1] },

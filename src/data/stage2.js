@@ -14,7 +14,7 @@ const z1 = {
     { kind: 'containers', x: 12, z: -8, n: 4, rot: 0, dx: 0, dz: -12.6, heights: [3, 2, 3, 3] },
   ],
   props: [
-    ['barrier_road', -2.5, -9, 0], ['barrier_road', 2.5, -9, 0], ['warning', 0, -9, 0],
+    ['barrier_road', -5.5, -9, 0], ['barrier_road', 5.5, -9, 0], ['warning', -3.6, -9, 0], ['warning', 3.6, -9, 0],
     ['loader', 4.2, -21, 25, { tint: { colormap: 0xffc107 } }], ['cargo_pile', -4, -26, 15], ['crate_k', 3.4, -31, 10], ['box_factory', -3.6, -33, 0],
     ['red_barrel', -3.0, -27.6, 0, { destructible: 'red_barrel' }], ['barrel', 5.6, -33, 0], ['barrel', 6.2, -33.6, 0],
     lamp(-6, -14, 90), lamp(6, -28, -90), ['tank_large', -30, -60, 0], ['chimney', 34, -80, 0],
@@ -24,12 +24,12 @@ const z1 = {
     { events: [
       C(0, 'walk', { from: [-5.5, 0, -12], to: [-5.5, 0, -40], model: 'worker', outfit: { 0: 0xff8f00, 1: 0xff8f00 } }),
       E(0.4, 'popup', { pos: [-4.3, 0, -28.4], model: 'punk', outfit: 'yellow' }),
-      E(1.3, 'popup', { pos: [8.3, H * 1, -21], model: 'suit', outfit: 'purple', delay: 0.4 }),
+      E(1.3, 'popup', { pos: [8.3, H * 3, -21], model: 'suit', outfit: 'purple', delay: 0.4 }),
       E(2.0, 'runout', { from: [7.8, 0, -36], pos: [3.2, 0, -32.6], model: 'punkf', outfit: 'red' }),
     ] },
     { look: [0, 2.5, -34], events: [
       E(0.1, 'roll', { from: [-6.5, 0, -36], pos: [-2.2, 0, -36], model: 'casual', outfit: 'teal' }),
-      E(0.8, 'popup', { pos: [-8.3, H * 2, -32], model: 'adventurer', outfit: 'orange' }),
+      E(0.8, 'popup', { pos: [-8.3, H * 3, -32], model: 'adventurer', outfit: 'orange' }),
       C(0.2, 'panic', { from: [2, 0, -38], to: [7, 0, -10], model: 'farmer' }),
     ] },
   ],
@@ -53,7 +53,7 @@ const z2 = {
   waves: [
     { events: [
       E(0.2, 'jumpdown', { from: [-7.4, H * 2, -21], pos: [-3.5, 0, -24], model: 'worker', outfit: 'red' }),
-      E(1.0, 'jumpdown', { from: [7.4, H * 2, -27], pos: [3.4, 0, -27.5], model: 'punk', outfit: 'teal' }),
+      E(1.0, 'jumpdown', { from: [7.4, H * 3, -27], pos: [3.4, 0, -27.5], model: 'punk', outfit: 'teal' }),
       E(1.9, 'popup', { pos: [-3.0, 0, -24.0], model: 'suit', outfit: 'yellow' }),
     ] },
     { look: [0, 1.6, -34], events: [
@@ -75,7 +75,7 @@ const z3 = {
     { kind: 'containers', x: 9, z: -4, n: 2, rot: 0, dx: 0, dz: -12.6, heights: [3, 2] },
   ],
   props: [
-    ['truck_box', -9, -36, 90, { tint: { '.*': 0xe9eef2 } }], ['loader', 8, -33, -60, { tint: { colormap: 0xffc107 } }],
+    ['truck_box', -9, -36, 90], ['loader', 8, -33, -60, { tint: { colormap: 0xffc107 } }],
     ['crate_k', 3, -28, 0], ['crate_k', 4.3, -28.5, 20], ['pallet', -2.6, -27, 0],
     ['pickup_crate', 5.6, -26, 0, { destructible: 'crate', weapon: 'shotgun' }],
     ['red_barrel', -4.4, -39.6, 0, { destructible: 'red_barrel' }],
@@ -136,19 +136,19 @@ const a2 = {
     { kind: 'portGround', x: 0, z: -24, w: 60, d: 48 },
     { kind: 'water', x: -100, z: -40, w: 180, d: 240, y: -1.4 },
     { kind: 'gantry', x: 0, z: -24, span: 22, rot: 0 },
-    { kind: 'containers', x: 6, z: -12, n: 3, rot: 90, dx: 0, dz: -3.0, heights: [1, 2, 1] },
-    { kind: 'containers', x: -4, z: -30, n: 3, rot: 90, dx: 0, dz: -3.0, heights: [2, 1, 2] },
+    { kind: 'containers', x: 9, z: -12, n: 3, rot: 90, dx: 0, dz: -3.0, heights: [1, 2, 1] },
+    { kind: 'containers', x: -9, z: -30, n: 3, rot: 90, dx: 0, dz: -3.0, heights: [2, 1, 2] },
   ],
   props: [['red_barrel', 1.6, -27.5, 0, { destructible: 'red_barrel' }], ['pickup_crate', -5, -18, 0, { destructible: 'crate', weapon: 'magnum' }], lamp(10, -36, -90)],
   path: [[0, 1.7, -2], [0, 1.7, -6]], look: [0, 1.8, -26], next: [0, 0, -46, 0],
   waves: [
     { events: [
       E(0.2, 'heavy', { from: [0, 0, -44], pos: [0.5, 0, -34], model: 'swat', outfit: 'armor', hp: 3 }),
-      E(0.8, 'popup', { pos: [-3.4, H * 2, -33], model: 'worker', outfit: 'yellow' }),
+      E(0.8, 'popup', { pos: [-4.0, H * 2, -30], model: 'worker', outfit: 'yellow' }),
       E(1.6, 'runacross', { from: [-10, 0, -22], pos: [10, 0, -23], model: 'punk', outfit: 'orange' }),
     ] },
     { look: [2, 2, -14], events: [
-      E(0.2, 'popup', { pos: [5.4, H * 2, -15], model: 'adventurer', outfit: 'purple' }),
+      E(0.2, 'popup', { pos: [4.0, H * 2, -15], model: 'adventurer', outfit: 'purple' }),
       E(0.9, 'roll', { from: [9, 0, -20], pos: [3.5, 0, -20.5], model: 'casual', outfit: 'red' }),
     ] },
   ],
@@ -185,9 +185,10 @@ const b2 = {
   id: '2-5ב', name: 'רציף הטעינה', seed: 27, par: 20,
   set: [{ kind: 'portGround', x: 0, z: -22, w: 50, d: 44 }],
   props: [
-    ['truck_box', -6, -26, 0, { tint: { '.*': 0xd84315 } }], ['truck_box', 6.5, -30, 0, { tint: { '.*': 0x1565c0 } }], ['delivery', 0, -40, 90],
+    ['truck_box', -6, -26, 0], ['truck_box', 6.5, -30, 0], ['delivery', 0, -40, 90],
     ['crate_k', -2, -20, 0], ['pallet', 2, -18, 0], ['cargo_pile', -12, -16, 0], ['red_barrel', 2.6, -24.6, 0, { destructible: 'red_barrel' }],
     ['warehouse_b', 0, -62, 0], lamp(-10, -30, 90), lamp(10, -20, -90),
+    ['warehouse_a', -30, -24, 90], ['warehouse_c', 28, -20, -90], ['cont_q', -11, -8, 0, { tint: { '.*': 0x2e7d32 } }], ['cont_q', 12, -40, 90],
   ],
   path: [[0, 1.7, -2], [0, 1.7, -7]], look: [0, 1.8, -28], next: [0, 0, -44, 0],
   waves: [
@@ -218,15 +219,15 @@ const ride = {
   path: [[0, 2.5, -4], [0.4, 2.5, -60], [-0.4, 2.5, -120], [0.2, 2.5, -180], [0, 2.5, -212]], look: [0, 2.2, -230], next: [0, 0, -222, 0],
   waves: [
     { events: [
-      E(1.0, 'popup', { pos: [-6.8, H * 2, -32], model: 'punk', outfit: 'yellow', duck: false }),
+      E(1.0, 'popup', { pos: [-6.8, H * 3, -32], model: 'punk', outfit: 'yellow', duck: false }),
       E(2.5, 'popup', { pos: [6.8, H * 3, -56], model: 'punkf', outfit: 'teal', duck: false }),
       E(3.5, 'driveby', { rig: true, from: [-3.2, 0, 10], pos: [-3.2, 0, -30], car: 'truck_k', carColor: 0x2e7d32, side: 1, speed: 4, model: 'suit', outfit: 'orange' }),
     ] },
     { events: [
       grenade(0.5, [7, H * 3, -110]),
       E(0.8, 'popup', { pos: [-6.8, H * 3, -112], model: 'casual', outfit: 'red', duck: false }),
-      E(2.4, 'popup', { pos: [6.8, H * 2, -136], model: 'adventurer', outfit: 'purple', duck: false }),
-      E(4.0, 'popup', { pos: [-6.8, H * 2, -160], model: 'worker', outfit: 'white', duck: false }),
+      E(2.4, 'popup', { pos: [6.8, H * 3, -136], model: 'adventurer', outfit: 'purple', duck: false }),
+      E(4.0, 'popup', { pos: [-6.8, H * 3, -160], model: 'worker', outfit: 'white', duck: false }),
     ] },
   ],
 };
@@ -241,7 +242,7 @@ const deck = {
   ],
   props: [
     ['crate_wide', -2.5, -26, 0], ['cargo_pile', 3, -34, 0], ['red_barrel', -3.2, -29, 0, { destructible: 'red_barrel' }],
-    ['barrel', 5, -24, 0], ['barrel', 5.6, -24.6, 0], ['ship_large', 90, -140, 30], ['tug', -40, -60, 70],
+    ['barrel', 5, -24, 0], ['barrel', 5.6, -24.6, 0], ['ship_cargo', 90, -150, 30], ['tug', -40, -60, 70],
   ],
   path: [[0, 1.7, -2], [0, 1.7, -8]], look: [0, 1.7, -28], next: [0, 0, -40, 0],
   waves: [
@@ -274,7 +275,7 @@ const boss = {
   slabs: true,
   path: [[0, 1.7, -2], [0, 1.7, -10]], look: [0, 6.5, -38],
   boss: {
-    name: 'המבריח — "רב החובל"', title: 'המבריח', model: 'adventurer', outfit: 'boss2', weapon: 'smg_b', hp: 38,
+    name: 'המבריח — "רב החובל"', title: 'המבריח', model: 'adventurer', outfit: 'boss2', weapon: 'smg_b', hp: 54,
     start: [0, 9.6, -40.6], covers: [[-6.5, 9.6, -40.4], [0, 9.6, -40.6], [6.5, 9.6, -40.4]],
     patterns: ['mg', 'summon', 'mg', 'grenade'], introAnim: 'fold_arms',
     summon: [{ kind: 'popup', pos: [-5, 0, -31.8], model: 'punk', outfit: 'yellow' }, { kind: 'popup', pos: [5, 0, -32.8], model: 'worker', outfit: 'red' }],

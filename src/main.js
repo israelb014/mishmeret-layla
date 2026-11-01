@@ -201,7 +201,7 @@ class App {
     this.game.devGod = q.has('god');
     this.game.devAim = q.get('aim');
     this.game.forcedBranch = q.get('branch');
-    window.__app = this;
+    window.__app = this; window.__THREE = THREE;
   }
 }
 

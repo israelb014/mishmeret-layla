@@ -465,7 +465,7 @@ export function hall(ctx, p) {
   const ceil = ctx.mats.get('concrete', { repeat: [1, 1], color: 0x9aa0a6, key: 'ceil' });
   if (p.ceiling !== false) slab(ctx, ceil, w, d, x, (p.y || 0) + h + 0.3, z, 0.3);
   // light strips (emissive, bloom picks them up)
-  const strip = new THREE.MeshStandardMaterial({ color: 0xffffff, emissive: 0xf4fbff, emissiveIntensity: 2.2 });
+  const strip = new THREE.MeshStandardMaterial({ color: 0xffffff, emissive: 0xf4fbff, emissiveIntensity: ctx.night ? 1.6 : 1.1 });
   for (let zz = z + d / 2 - 3; zz > z - d / 2; zz -= 6) {
     const s = new THREE.Mesh(new THREE.BoxGeometry(w * 0.7, 0.06, 0.4), strip); s.position.set(x, (p.y || 0) + h - 0.05, zz); ctx.static(s, { keep: true, noShadow: true });
   }

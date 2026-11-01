@@ -36,7 +36,7 @@ export const CREDITS = [
   { name: 'Asphalt 02, Concrete Pavers 02, Large Sandstone Blocks, Plastered Wall 02, Concrete Wall 008, Brick Wall 02, Corrugated Iron 02, Brown Planks 05, Metal Plate, Floor Tiles 08, Rectangular Facade Tiles, Painted Metal Shutter', author: 'Poly Haven (Rob Tuytel, Dimitrios Savva, Amal Kumar ועוד)', source: 'https://polyhaven.com/textures', license: 'CC0 1.0', usage: 'משטחי PBR: כביש, מדרכות, אבן ירושלמית, טיח, בטון, לבנים, פח גלי, עץ, סיפון, אריחים, תריסים' },
   { name: 'Kloofendal 43d Clear (Pure Sky)', author: 'Greg Zaal / Poly Haven', source: 'https://polyhaven.com/a/kloofendal_43d_clear_puresky', license: 'CC0 1.0', usage: 'שמיים — אחר הצהריים' },
   { name: 'Qwantani Sunset (Pure Sky)', author: 'Greg Zaal / Poly Haven', source: 'https://polyhaven.com/a/qwantani_sunset_puresky', license: 'CC0 1.0', usage: 'שמיים — שקיעה' },
-  { name: 'Shanghai Bund', author: 'Greg Zaal / Poly Haven', source: 'https://polyhaven.com/a/shanghai_bund', license: 'CC0 1.0', usage: 'שמיים — לילה עירוני' },
+  { name: 'Rooftop Night', author: 'Greg Zaal / Poly Haven', source: 'https://polyhaven.com/a/rooftop_night', license: 'CC0 1.0', usage: 'שמיים — לילה עירוני' },
   // sound
   { name: 'The Free Firearm Sound Library (Walther PPQ, PPSh, Mossberg, Ruger Single Six, Bersa, AK-47)', author: 'bart / Still North Media', source: 'https://opengameart.org/content/the-free-firearm-sound-library', license: 'CC0 1.0', usage: 'יריות' },
   { name: 'Gun reload sounds', author: 'SpringySpringo', source: 'https://opengameart.org/content/gun-reload-sounds', license: 'CC0 1.0', usage: 'טעינה' },

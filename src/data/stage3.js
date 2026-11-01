@@ -232,7 +232,7 @@ const z7 = {
   waves: [
     { events: [
       E(0.3, 'popup', { pos: [4.2, P, -32.4], model: 'punk', outfit: 'red' }),
-      E(1.0, 'window', { pos: [0.9, 1.4, -26], from: [-0.2, 1.4, -26], model: 'suit', outfit: 'yellow' }),
+      E(1.0, 'window', { pos: [2.6, P, -26], from: [0.6, P, -26], model: 'suit', outfit: 'yellow' }),
       C(0, 'freeze', { pos: [8, P, -14], to: [8.5, P, -2], hold: 2.6, model: 'woman' }),
     ] },
     { look: [3, 1.8, -36], events: [
@@ -258,7 +258,7 @@ const boss = {
   travel: { duration: 22, endEarly: false, props: [['train_q', -6.5, -10, 0, { tint: RAIL }], ['train_q', -6.5, -30.5, 0, { tint: RAIL }]] },
   path: [[6.5, 1.7 + P, -2], [6.5, 1.7 + P, -20], [6.5, 1.7 + P, -42]], look: [3, 3, -66],
   boss: {
-    name: 'ה"מנצח" — ראש הרשת', title: 'ראש הרשת', model: 'punk', outfit: 'boss3', weapon: 'smg', hp: 44, rig: true,
+    name: 'ה"מנצח" — ראש הרשת', title: 'ראש הרשת', model: 'punk', outfit: 'boss3', weapon: 'smg', hp: 60, rig: true,
     start: [-6.5, 3.8, -14], covers: [[-7.1, 3.8, -12], [-5.9, 3.8, -18], [-6.5, 3.8, -26], [-7, 3.8, -33]],
     patterns: ['burst', 'grenade', 'roll', 'burst'],
     phase2: { rig: false, covers: [[5, P, -60], [8.4, P, -64], [6.2, P, -70], [9.4, P, -58]], patterns: ['roll', 'burst', 'grenade', 'summon'], callout: 'הוא קפץ לרציף!' },
@@ -270,7 +270,7 @@ const boss = {
 export default {
   id: 3, title: 'תחנת הרכבת', subtitle: 'לילה, ניאון ומנהרות', hdri: 'night', music: 'stage3', target: 50000, night: true,
   fog: [0x16202e, 40, 190], sun: { color: 0x9db8ff, intensity: 0.9, dir: [0.4, 0.8, 0.3] }, hemi: [0x5a6a8a, 0x2a2228, 0.6],
-  exposure: 1.25, bloom: 0.85, bloomThreshold: 0.85, envIntensity: 0.9, bgIntensity: 0.9, dust: 0x9aa0a8, rim: 0x7fe9ff, rimStrength: 0.9,
+  exposure: 1.1, bloom: 0.6, bloomThreshold: 1.25, envIntensity: 1.0, bgIntensity: 0.75, bgBlur: 0.15, dust: 0x9aa0a8, rim: 0x7fe9ff, rimStrength: 0.9,
   start: { pos: [0, 0, 0], yaw: 0 },
   intro: { path: [[-10, 22, 30], [6, 10, 6], [1, 4, -4], [0, 1.7, -2]], look: [0, 3, -30], duration: 6 },
   menuPath: [[0, 6, 20], [0, 5, -30]],

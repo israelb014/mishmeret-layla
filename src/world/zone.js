@@ -8,6 +8,43 @@ import { signTexture } from './signs.js';
 const deg = d => d * Math.PI / 180;
 const _box = new THREE.Box3();
 
+// Oriented collider: tight box in the object's local frame + its world matrix.
+export class OBB {
+  constructor(obj) {
+    obj.updateMatrixWorld(true);
+    this.matrix = obj.matrixWorld.clone();
+    this.inv = this.matrix.clone().invert();
+    this.box = new THREE.Box3();
+    const m = new THREE.Matrix4();
+    obj.traverse(o => {
+      if (!o.isMesh || !o.visible) return;
+      if (!o.geometry.boundingBox) o.geometry.computeBoundingBox();
+      m.multiplyMatrices(this.inv, o.matrixWorld);
+      this.box.union(o.geometry.boundingBox.clone().applyMatrix4(m));
+    });
+    this.worldBox = this.box.clone().applyMatrix4(this.matrix);
+  }
+  shrink(dx, dz) { this.box.min.x += dx; this.box.max.x -= dx; this.box.min.z += dz; this.box.max.z -= dz; this.worldBox = this.box.clone().applyMatrix4(this.matrix); return this; }
+  trimTop(f) { this.box.max.y = this.box.min.y + (this.box.max.y - this.box.min.y) * f; return this; }
+  containsPoint(p) { return this.box.containsPoint(_lp.copy(p).applyMatrix4(this.inv)); }
+  // returns world-space hit point or null
+  intersectRay(ray, target = new THREE.Vector3()) {
+    _lr.copy(ray).applyMatrix4(this.inv);
+    if (this.box.containsPoint(_lr.origin)) return null;
+    const p = _lr.intersectBox(this.box, target);
+    return p ? p.applyMatrix4(this.matrix) : null;
+  }
+  // world-space normal of the face nearest to a world point
+  normalAt(pw) {
+    const lp = _lp.copy(pw).applyMatrix4(this.inv);
+    const c = this.box.getCenter(new THREE.Vector3()), s = this.box.getSize(new THREE.Vector3());
+    const d = lp.sub(c).divide(s); const ax = Math.abs(d.x), ay = Math.abs(d.y), az = Math.abs(d.z);
+    const n = new THREE.Vector3(ax > ay && ax > az ? Math.sign(d.x) : 0, ay >= ax && ay > az ? Math.sign(d.y) : 0, az >= ax && az >= ay ? Math.sign(d.z) : 0);
+    return n.transformDirection(this.matrix);
+  }
+}
+const _lp = new THREE.Vector3(), _lr = new THREE.Ray();
+
 export class Zone {
   constructor(def, index) {
     this.def = def;
@@ -126,7 +163,7 @@ export class ZoneBuilder {
       lamp: (pos, color, intensity = 1) => {
         if (lampBudget.n <= 0) return;
         lampBudget.n--;
-        const l = new THREE.PointLight(color, 18 * intensity, 18, 1.6);
+        const l = new THREE.PointLight(color, 9 * intensity, 16, 1.6);
         l.position.copy(pos); keepGroup.add(l); zone.lights.push(l);
       },
     };
@@ -167,7 +204,11 @@ export class ZoneBuilder {
       if (_box.isEmpty()) continue;
       const size = _box.getSize(new THREE.Vector3());
       if (Math.max(size.x, size.y, size.z) < 0.35) continue;
-      zone.colliders.push({ box: _box.clone(), kind: o.userData.prefab || o.name || 'surface', material: guessSurface(o) });
+      const pf = o.userData.prefab || '';
+      if (NON_BLOCKING.test(pf)) continue;
+      const obb = new OBB(o);
+      if (pf.startsWith('bld_')) obb.shrink(1.2, 2.2);
+      zone.colliders.push({ obb, kind: o.userData.prefab || o.name || 'surface', material: guessSurface(o) });
     }
   }
 
@@ -232,6 +273,9 @@ export class ZoneBuilder {
     return d;
   }
 }
+
+// thin or see-through props never block bullets (their bounding boxes are mostly air)
+const NON_BLOCKING = /^(balcony|awning|overhang|cables|scaffold|parasol|rail_guard|catwalk|street_light|lamp|traffic_light|palm|tree|bush|sign_|elec_pole|solar_panel|water_tank|ac_unit|fence|struct_|crane|potted|plant|bench|bollard|cone|display|pillar|stairs|escalator)/;
 
 function guessSurface(o) {
   const n = (o.userData.prefab || '') + (o.material?.name || '');

@@ -72,7 +72,7 @@ export const TEXTURES = {
   concrete: 'concrete_wall_008', brick: 'brick_wall_02', corrugated: 'corrugated_iron_02', planks: 'brown_planks_05',
   deck: 'metal_plate', tiles: 'floor_tiles_08', facade_tiles: 'rectangular_facade_tiles', shutter: 'painted_metal_shutter',
 };
-export const HDRIS = { afternoon: 'kloofendal_43d_clear_puresky', sunset: 'qwantani_sunset_puresky', night: 'shanghai_bund' };
+export const HDRIS = { afternoon: 'kloofendal_43d_clear_puresky', sunset: 'qwantani_sunset_puresky', night: 'rooftop_night' };
 
 const SFX = `${RAW}/sfx`;
 const FL = `${SFX}/the-free-firearm-sound-library/x/Prepared SFX Library`;

@@ -1,6 +1,6 @@
 // Game session: stage flow, zones, encounters, shooting, damage and scoring.
 import * as THREE from 'three';
-import { ZoneBuilder } from '../world/zone.js';
+import { ZoneBuilder, OBB } from '../world/zone.js';
 import { Enemy } from '../actors/enemy.js';
 import { Civilian } from '../actors/civilian.js';
 import { Boss } from '../actors/boss.js';
@@ -258,8 +258,32 @@ export class Game {
     const e = this.encounter;
     if (!e || e.done) return;
     e.waveTime += dt;
+    // quick turn toward threats that are outside the frame
+    this._turnCheck = (this._turnCheck || 0) - dt;
+    if (this._turnCheck <= 0 && !this.rail.moving) {
+      this._turnCheck = 0.4;
+      for (const a of this.actors) {
+        if (!a.isEnemy || !a.alive || !a.threat) continue;
+        const p = a.ringAnchor(new THREE.Vector3());
+        const sp = p.clone().project(this.camera);
+        if (sp.z > 1 || Math.abs(sp.x) > 0.92 || Math.abs(sp.y) > 0.85) {
+          const t = this.rail.lookTarget.clone().lerp(p, 0.75);
+          this.rail.turnTo(t, 5);
+          break;
+        }
+      }
+    }
     while (e.pending.length && (e.pending[0].t || 0) <= e.waveTime) this.fireEvent(e.pending.shift(), e);
     const def = e.zone.def;
+    // moving segments: enemies the camera has left behind get away
+    if (def.travel) {
+      const fwd = this.camera.getWorldDirection(new THREE.Vector3());
+      for (const a of this.actors) {
+        if (!a.isEnemy || a.isBoss || !a.alive || a.spec?.rig) continue;
+        const d = a.root.getWorldPosition(new THREE.Vector3()).sub(this.camera.position);
+        if (d.dot(fwd) < -1) a.escape();
+      }
+    }
     const waveClear = !e.pending.length && e.spawned.every(a => a.down);
     if (waveClear && !this.waveIdle) {
       e.gap = (e.gap || 0) + dt;
@@ -498,8 +522,7 @@ export class Game {
         if (h) hits.push({ ...h, destructible: d });
       }
       for (const c of z.colliders) {
-        if (c.box.containsPoint(ray.origin)) continue;
-        const p = ray.intersectBox(c.box, new THREE.Vector3());
+        const p = c.obb.intersectRay(ray);
         if (p) hits.push({ t: p.distanceTo(ray.origin), point: p, world: c });
       }
     }
@@ -534,13 +557,8 @@ export class Game {
 
   worldImpact(h) {
     const n = this.camera.position.clone().sub(h.point).normalize();
-    if (h.world.box) {
-      // box face normal
-      const c = h.world.box.getCenter(new THREE.Vector3()), s = h.world.box.getSize(new THREE.Vector3());
-      const d = h.point.clone().sub(c).divide(s);
-      const ax = Math.abs(d.x), ay = Math.abs(d.y), az = Math.abs(d.z);
-      n.set(ax > ay && ax > az ? Math.sign(d.x) : 0, ay >= ax && ay > az ? Math.sign(d.y) : 0, az >= ax && az >= ay ? Math.sign(d.z) : 0);
-    } else if (h.ground) n.set(0, 1, 0);
+    if (h.world.obb) n.copy(h.world.obb.normalAt(h.point));
+    else if (h.ground) n.set(0, 1, 0);
     const mat = h.world.material;
     if (mat === 'metal') { this.fx.sparks(h.point, n, 9); this.audio.play('ricochet', { volume: 0.35, pan: this.screenPan(h.point) }); }
     else if (mat === 'wood') { this.fx.dust(h.point, n, 0x9b7a55, 3); this.audio.play('wood', { volume: 0.4 }); }
@@ -562,9 +580,13 @@ export class Game {
       const p = ray.intersectBox(box, new THREE.Vector3());
       return p ? { t: p.distanceTo(ray.origin), point: p } : null;
     }
-    if (!d.box) { o.updateMatrixWorld(true); d.box = new THREE.Box3().setFromObject(o); if (d.kind === 'bottle') d.box.expandByScalar(0.06); }
-    if (d.box.containsPoint(ray.origin)) return null;
-    const p = ray.intersectBox(d.box, new THREE.Vector3());
+    if (!d.obb) {
+      d.obb = new OBB(o);
+      if (d.kind === 'bottle') { d.obb.box.expandByScalar(0.06); }
+      // the roof of a car is much narrower than its body: trim the top of the box
+      if (d.kind === 'car') d.obb.trimTop(0.8);
+    }
+    const p = d.obb.intersectRay(ray);
     return p ? { t: p.distanceTo(ray.origin), point: p } : null;
   }
 
@@ -859,13 +881,36 @@ export class Game {
       if (!a.isEnemy || !a.alive || !a.root.visible) continue;
       if (a.state === 'hidden' || a.state === 'wait' || a.state === 'intro' && a.t < 0.6 || a.state === 'phase') continue;
       const u = a.threat ? a.threat.remaining : 5;
-      if (u < bestU) { bestU = u; best = a.char.bonePos(this.devAim === 'head' ? 'Head' : 'Chest', new THREE.Vector3()); }
+      if (u < bestU) {
+        const pt = this.devClearShot(a);
+        if (pt) { bestU = u; best = pt; }
+      }
     }
     for (const z of this.zones) for (const d of z.destructibles) if (d.alive && d.kind === 'crate' && d.opts.weapon && !best) best = d.obj.getWorldPosition(new THREE.Vector3()).add(new THREE.Vector3(0, 0.4, 0));
     if (best) {
       const sp = best.clone().project(this.camera);
       if (Math.abs(sp.x) < 1 && Math.abs(sp.y) < 1 && sp.z < 1) { this.aimAt(best); this.tryFire(); this._autoT = 0.28; }
     }
+  }
+
+  // DEV: first body point of an actor that a bullet would actually reach
+  devClearShot(a) {
+    for (const bone of this.devAim === 'head' ? ['Head', 'Chest'] : ['Chest', 'Head', 'Hips', 'WristR']) {
+      const pt = a.char.bonePos(bone, new THREE.Vector3());
+      const sp = pt.clone().project(this.camera);
+      _rc.setFromCamera(new THREE.Vector2(sp.x, sp.y), this.camera);
+      const own = a.char.hitTest(_rc.ray);
+      if (!own) continue;
+      let blocked = false;
+      for (const z of this.zones) {
+        for (const c of z.colliders) { const p = c.obb.intersectRay(_rc.ray, _v); if (p && p.distanceTo(_rc.ray.origin) < own.t) { blocked = true; break; } }
+        if (blocked) break;
+        for (const d of z.destructibles) { if (!d.alive || d.kind === 'glass') continue; const h = this.hitDestructible(d, _rc.ray); if (h && h.t < own.t) { blocked = true; break; } }
+        if (blocked) break;
+      }
+      if (!blocked) return pt;
+    }
+    return null;
   }
 
   aimAt(p) {

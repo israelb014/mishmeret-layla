@@ -113,7 +113,7 @@ const a1 = {
       E(1.0, 'popup', { pos: [1.9, 0, -56.6], model: 'casual', outfit: 'yellow' }),
       C(0.1, 'panic', { from: [0.5, 0, -40], to: [-0.5, 0, -66], model: 'beach' }),
     ] },
-    { events: [
+    { look: [1, 3.2, -40], events: [
       grenade(0.3, [2.4, 5.0, -39]),
       E(0.2, 'window', { pos: [2.0, 4.85, -38], model: 'punkf', outfit: 'red' }),
       E(1.2, 'heavy', { from: [-0.5, 0, -66], pos: [-0.3, 0, -54], model: 'swat', outfit: 'armor', hp: 3 }),
@@ -169,7 +169,7 @@ const b1 = {
     { look: [0, 1.6, -55], events: [
       E(0.2, 'runacross', { from: [-8, 0.02, -55], pos: [9, 0.02, -56], model: 'suit', outfit: 'purple' }),
       E(0.9, 'popup', { pos: [0.6, 0.02, -56], model: 'punkf', outfit: 'teal' }),
-      E(1.6, 'window', { pos: [-20.5, 4.7, -49], model: 'adventurer', outfit: 'orange' }),
+      E(1.6, 'window', { pos: [-17.3, 4.7, -49], model: 'adventurer', outfit: 'orange' }),
     ] },
   ],
 };
@@ -237,7 +237,7 @@ const z7 = {
   props: [
     ['building', -18, -6, 90, { type: 'bld_medium' }], ['building', 18, -6, -90, { type: 'bld_small' }],
     ['building', -17.5, -48, 0, { type: 'bld_small' }], ['building', 17.5, -48, 0, { type: 'bld_medium' }],
-    ['van', 1.5, -21, 65, { tint: { colormap: 0xd9d9d9 } }], ['car', -4, -27, 110], ['barrier', -6, -16, 20], ['cone', 3, -15, 0], ['cone', 4.5, -15.6, 0],
+    ['van', 1.5, -21, 65, { tint: { colormap: 0xd9d9d9 } }], ['car', -7, -36, 110], ['barrier', -6, -16, 20], ['cone', 3, -15, 0], ['cone', 4.5, -15.6, 0],
     ['red_barrel', 4.4, -19.5, 0, { destructible: 'red_barrel' }], ['traffic_light', -8, -16.5, 0], ['traffic_light', 8, -31.5, 180],
     ['palm', -9, -34, 0], ['palm', 9, -36, 0],
     ['pickup_crate', -6.0, -12, 15, { destructible: 'crate', weapon: 'shotgun', y: 0.16 }],
@@ -245,15 +245,15 @@ const z7 = {
   path: [[0, 1.7, -3], [0, 1.7, -9]], look: [0, 1.4, -24], next: [0, 0, -44, 0],
   waves: [
     { events: [
-      E(0.2, 'runout', { from: [2.5, 0, -24], pos: [5.5, 0, -25], model: 'punk', outfit: 'yellow' }),
+      E(0.2, 'runout', { from: [2.5, 0, -24], pos: [6.8, 0, -23.5], model: 'punk', outfit: 'yellow' }),
       E(0.7, 'runout', { from: [0.5, 0, -24], pos: [-2.5, 0, -22.6], model: 'casual', outfit: 'red' }),
       C(0.1, 'panic', { from: [-10, 0.16, -10], to: [-10, 0.16, 6], model: 'farmer' }),
     ] },
     { look: [0, 1.5, -30], events: [
       E(0.2, 'heavy', { from: [-14, 0, -27], pos: [-6, 0, -29], model: 'swat', outfit: 'armor', hp: 3 }),
-      E(0.8, 'grenade', { pos: [5, 0, -30], model: 'punkf', outfit: 'teal', throws: 1 }),
+      E(0.8, 'grenade', { pos: [-3, 0, -31], model: 'punkf', outfit: 'teal', throws: 1 }),
       pickup(1.0, 'shield', [-3.5, 1.6, -15]),
-      E(1.8, 'roll', { from: [10, 0, -26], pos: [6, 0, -26.4], model: 'adventurer', outfit: 'purple' }),
+      E(1.8, 'roll', { from: [11, 0, -24], pos: [7.6, 0, -23.6], model: 'adventurer', outfit: 'purple' }),
     ] },
   ],
 };
@@ -268,7 +268,7 @@ const boss = {
   ],
   path: [[0, 1.7, -3], [0, 1.7, -8]], look: [0, 1.6, -24],
   boss: {
-    name: 'ראש הכנופיה — "המעיל"', title: 'ראש הכנופיה', model: 'suit', outfit: 'boss1', weapon: 'smg', hp: 34,
+    name: 'ראש הכנופיה — "המעיל"', title: 'ראש הכנופיה', model: 'suit', outfit: 'boss1', weapon: 'smg', hp: 48,
     start: [0, 0, -29], covers: [[-3.6, 0, -26.6], [2.0, 0, -27.0], [6.6, 0, -26.6], [-7.4, 0, -26.5]],
     patterns: ['burst', 'grenade', 'burst', 'summon'],
     summon: [{ kind: 'popup', pos: [-6, 0, -26.8], model: 'punk', outfit: 'yellow' }, { kind: 'runout', from: [12, 0.16, -28], pos: [7.5, 0, -27], model: 'punkf', outfit: 'red' }],
