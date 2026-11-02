@@ -278,7 +278,7 @@ const boss = {
 
 export default {
   id: 1, title: 'רחוב הרצל', subtitle: 'אחר הצהריים ברחוב הראשי', hdri: 'afternoon', music: 'stage1', target: 42000,
-  fog: [0xcfe0ee, 70, 260], sun: { color: 0xfff1d6, intensity: 3.4, dir: [-0.55, 0.85, 0.35] }, hemi: [0xdcecff, 0x8a7458, 0.45],
+  fog: [0xcfe0ee, 70, 260], sun: { color: 0xfff1d6, intensity: 3.4, dir: [-0.55, 0.85, 0.35] }, hdriSun: { u: 0.6, elev: 43 }, hemi: [0xdcecff, 0x8a7458, 0.45],
   exposure: 1.05, bloom: 0.35, bloomThreshold: 2.6, envIntensity: 1.0, dust: 0xd8c8a8,
   start: { pos: [0, 0, 0], yaw: 0 },
   intro: { path: [[-6, 26, 46], [5, 14, 14], [1, 5, -2], [0, 1.7, -4]], look: [0, 1.4, -28], duration: 6 },

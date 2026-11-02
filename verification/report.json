@@ -1,0 +1,324 @@
+{
+  "errors": [],
+  "failed": [],
+  "zones": [
+    {
+      "tag": "s1z1",
+      "file": "verification/stage1_zone01_1-1.png",
+      "id": "1-1",
+      "enemies": 3,
+      "kills": 3
+    },
+    {
+      "tag": "s1z2",
+      "file": "verification/stage1_zone02_1-2.png",
+      "id": "1-2",
+      "enemies": 1,
+      "kills": 2
+    },
+    {
+      "tag": "s1z3",
+      "file": "verification/stage1_zone03_1-3.png",
+      "id": "1-3",
+      "enemies": 1,
+      "kills": 1
+    },
+    {
+      "tag": "s1z4l",
+      "file": "verification/stage1_zone04_left_1-4א.png",
+      "id": "1-4א",
+      "enemies": 1,
+      "kills": 0
+    },
+    {
+      "tag": "s1z5l",
+      "file": "verification/stage1_zone05_left_1-5א.png",
+      "id": "1-5א",
+      "enemies": 3,
+      "kills": 0
+    },
+    {
+      "tag": "s1z6l",
+      "file": "verification/stage1_zone06_left_1-6.png",
+      "id": "1-6",
+      "enemies": 2,
+      "kills": 2
+    },
+    {
+      "tag": "s1z7l",
+      "file": "verification/stage1_zone07_left_1-7.png",
+      "id": "1-7",
+      "enemies": 3,
+      "kills": 2
+    },
+    {
+      "tag": "s1z8l",
+      "file": "verification/stage1_zone08_left_1-8.png",
+      "id": "1-8",
+      "enemies": 1,
+      "kills": 0
+    },
+    {
+      "tag": "s1z4r",
+      "file": "verification/stage1_zone04_right_1-4ב.png",
+      "id": "1-4ב",
+      "enemies": 1,
+      "kills": 1
+    },
+    {
+      "tag": "s1z5r",
+      "file": "verification/stage1_zone05_right_1-5ב.png",
+      "id": "1-5ב",
+      "enemies": 2,
+      "kills": 0
+    },
+    {
+      "tag": "s1z6r",
+      "file": "verification/stage1_zone06_right_1-6.png",
+      "id": "1-6",
+      "enemies": 2,
+      "kills": 2
+    },
+    {
+      "tag": "s1z7r",
+      "file": "verification/stage1_zone07_right_1-7.png",
+      "id": "1-7",
+      "enemies": 3,
+      "kills": 2
+    },
+    {
+      "tag": "s1z8r",
+      "file": "verification/stage1_zone08_right_1-8.png",
+      "id": "1-8",
+      "enemies": 1,
+      "kills": 0
+    },
+    {
+      "tag": "s2z1",
+      "file": "verification/stage2_zone01_2-1.png",
+      "id": "2-1",
+      "enemies": 2,
+      "kills": 5
+    },
+    {
+      "tag": "s2z2",
+      "file": "verification/stage2_zone02_2-2.png",
+      "id": "2-3",
+      "enemies": 2,
+      "kills": 6
+    },
+    {
+      "tag": "s2z3",
+      "file": "verification/stage2_zone03_2-3.png",
+      "id": "2-3",
+      "enemies": 2,
+      "kills": 5
+    },
+    {
+      "tag": "s2z4l",
+      "file": "verification/stage2_zone04_left_2-4א.png",
+      "id": "2-4א",
+      "enemies": 2,
+      "kills": 3
+    },
+    {
+      "tag": "s2z5l",
+      "file": "verification/stage2_zone05_left_2-5א.png",
+      "id": "2-5א",
+      "enemies": 2,
+      "kills": 5
+    },
+    {
+      "tag": "s2z6l",
+      "file": "verification/stage2_zone06_left_2-6.png",
+      "id": "2-6",
+      "enemies": 1,
+      "kills": 3
+    },
+    {
+      "tag": "s2z7l",
+      "file": "verification/stage2_zone07_left_2-7.png",
+      "id": "2-8",
+      "enemies": 1,
+      "kills": 5
+    },
+    {
+      "tag": "s2z8l",
+      "file": "verification/stage2_zone08_left_2-8.png",
+      "id": "2-8",
+      "enemies": 1,
+      "kills": 0
+    },
+    {
+      "tag": "s2z4r",
+      "file": "verification/stage2_zone04_right_2-4ב.png",
+      "id": "2-4ב",
+      "enemies": 3,
+      "kills": 2
+    },
+    {
+      "tag": "s2z5r",
+      "file": "verification/stage2_zone05_right_2-5ב.png",
+      "id": "2-6",
+      "enemies": 0,
+      "kills": 5
+    },
+    {
+      "tag": "s2z6r",
+      "file": "verification/stage2_zone06_right_2-6.png",
+      "id": "2-6",
+      "enemies": 1,
+      "kills": 3
+    },
+    {
+      "tag": "s2z7r",
+      "file": "verification/stage2_zone07_right_2-7.png",
+      "id": "2-8",
+      "enemies": 0,
+      "kills": 5
+    },
+    {
+      "tag": "s2z8r",
+      "file": "verification/stage2_zone08_right_2-8.png",
+      "id": "2-8",
+      "enemies": 1,
+      "kills": 0
+    },
+    {
+      "tag": "s3z1",
+      "file": "verification/stage3_zone01_3-1.png",
+      "id": "3-2",
+      "enemies": 1,
+      "kills": 5
+    },
+    {
+      "tag": "s3z2",
+      "file": "verification/stage3_zone02_3-2.png",
+      "id": "3-2",
+      "enemies": 2,
+      "kills": 6
+    },
+    {
+      "tag": "s3z3",
+      "file": "verification/stage3_zone03_3-3.png",
+      "id": "3-3",
+      "enemies": 1,
+      "kills": 4
+    },
+    {
+      "tag": "s3z4l",
+      "file": "verification/stage3_zone04_left_3-4א.png",
+      "id": "3-4א",
+      "enemies": 2,
+      "kills": 3
+    },
+    {
+      "tag": "s3z5l",
+      "file": "verification/stage3_zone05_left_3-5א.png",
+      "id": "3-5א",
+      "enemies": 4,
+      "kills": 3
+    },
+    {
+      "tag": "s3z6l",
+      "file": "verification/stage3_zone06_left_3-6.png",
+      "id": "3-6",
+      "enemies": 2,
+      "kills": 3
+    },
+    {
+      "tag": "s3z7l",
+      "file": "verification/stage3_zone07_left_3-7.png",
+      "id": "3-7",
+      "enemies": 3,
+      "kills": 5
+    },
+    {
+      "tag": "s3z8l",
+      "file": "verification/stage3_zone08_left_3-8.png",
+      "id": "3-8",
+      "enemies": 1,
+      "kills": 0
+    },
+    {
+      "tag": "s3z4r",
+      "file": "verification/stage3_zone04_right_3-4ב.png",
+      "id": "3-4ב",
+      "enemies": 3,
+      "kills": 3
+    },
+    {
+      "tag": "s3z5r",
+      "file": "verification/stage3_zone05_right_3-5ב.png",
+      "id": "3-6",
+      "enemies": 1,
+      "kills": 4
+    },
+    {
+      "tag": "s3z6r",
+      "file": "verification/stage3_zone06_right_3-6.png",
+      "id": "3-6",
+      "enemies": 2,
+      "kills": 3
+    },
+    {
+      "tag": "s3z7r",
+      "file": "verification/stage3_zone07_right_3-7.png",
+      "id": "3-7",
+      "enemies": 3,
+      "kills": 3
+    },
+    {
+      "tag": "s3z8r",
+      "file": "verification/stage3_zone08_right_3-8.png",
+      "id": "3-8",
+      "enemies": 1,
+      "kills": 0
+    }
+  ],
+  "screens": [
+    "verification/screen_01_loading.png",
+    "verification/screen_02_menu.png",
+    "verification/screen_03_difficulty.png",
+    "verification/screen_04_stage_select.png",
+    "verification/screen_05_highscores_empty.png",
+    "verification/screen_06_settings.png",
+    "verification/screen_07_credits.png",
+    "verification/screen_07b_credits_end.png",
+    "verification/screen_08_settings_after_reload.png",
+    "verification/screen_09_intro_title.png",
+    "verification/screen_10_hud.png",
+    "verification/screen_11_pause.png",
+    "verification/screen_12_pause_settings.png",
+    "verification/screen_13_gameover_continue.png",
+    "verification/screen_14_after_continue.png",
+    "verification/screen_15_results.png",
+    "verification/screen_16_ending.png",
+    "verification/screen_17_name_entry.png",
+    "verification/screen_18_highscores.png",
+    "verification/screen_19_highscores_after_reload.png",
+    "touch"
+  ],
+  "persistence": {
+    "settings": {
+      "musicVolume": 0.3,
+      "sfxVolume": 0.45,
+      "quality": "low",
+      "resolvedQuality": "low",
+      "crosshair": "cyan",
+      "shake": false,
+      "unlocked": 1,
+      "highscores": []
+    },
+    "highscores": [
+      {
+        "name": "נועה הגיבו",
+        "score": 12345,
+        "stage": 3,
+        "rank": "A",
+        "date": 1793578445205
+      }
+    ]
+  },
+  "touchNotice": 1
+}

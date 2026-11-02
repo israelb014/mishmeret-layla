@@ -196,7 +196,7 @@ const ride = {
   id: '3-6', name: 'הרכבת הנוסעת', seed: 38, par: 30,
   set: [{ kind: 'tunnel', x: 0, z0: 6, z1: -250, w: 14, h: 7.5 }, { kind: 'tracks', x: -3, z0: 6, z1: -250 }, { kind: 'tracks', x: 3, z0: 6, z1: -250 }],
   props: [],
-  travel: { duration: 26, vehicle: { name: 'flatbed', pos: [0, 0, 2], rot: 0 }, sound: 'train',
+  travel: { duration: 26, vehicle: { name: 'flatbed', pos: [0, 0, 2], rot: 0, tint: { colormap: 0x6a6f76 } }, sound: 'train',
     props: [['train_q', 6.2, -2, 0, { tint: RAIL }], ['train_q', 6.2, -24, 0, { tint: RAIL }]] },
   path: [[-3, 3.3, -4], [-3, 3.3, -80], [-3, 3.3, -160], [-3, 3.3, -235]], look: [-3, 3.0, -250], next: [-3, 0, -248, 0],
   waves: [
@@ -270,7 +270,7 @@ const boss = {
 export default {
   id: 3, title: 'תחנת הרכבת', subtitle: 'לילה, ניאון ומנהרות', hdri: 'night', music: 'stage3', target: 50000, night: true,
   fog: [0x16202e, 40, 190], sun: { color: 0x9db8ff, intensity: 0.9, dir: [0.4, 0.8, 0.3] }, hemi: [0x5a6a8a, 0x2a2228, 0.6],
-  exposure: 1.1, bloom: 0.6, bloomThreshold: 1.25, envIntensity: 1.0, bgIntensity: 0.75, bgBlur: 0.15, dust: 0x9aa0a8, rim: 0x7fe9ff, rimStrength: 0.9,
+  exposure: 1.0, bloom: 0.4, bloomThreshold: 2.2, envIntensity: 0.8, bgIntensity: 0.45, bgBlur: 0.12, dust: 0x9aa0a8, rim: 0x7fe9ff, rimStrength: 0.9,
   start: { pos: [0, 0, 0], yaw: 0 },
   intro: { path: [[-10, 22, 30], [6, 10, 6], [1, 4, -4], [0, 1.7, -2]], look: [0, 3, -30], duration: 6 },
   menuPath: [[0, 6, 20], [0, 5, -30]],

@@ -159,7 +159,7 @@ const b1 = {
   id: '2-4ב', name: 'המחסן הגדול', seed: 26, par: 20,
   set: [
     { kind: 'portGround', x: 0, z: -20, w: 30, d: 40, lines: false },
-    { kind: 'warehouse', x: 0, z: -46, w: 26, h: 12, d: 44, front: false, back: false, inside: true, doors: [], color: 0x9fb5c0 },
+    { kind: 'warehouse', x: 0, z: -46, w: 26, h: 12, d: 44, front: false, back: false, backOpening: true, inside: true, doors: [], color: 0x9fb5c0 },
   ],
   props: [
     ['shelf_boxes', -9, -34, 90], ['shelf_boxes', -9, -42, 90], ['shelf_boxes', -9, -50, 90], ['shelf_boxes', 9, -36, -90], ['shelf_boxes', 9, -46, -90],
@@ -285,8 +285,9 @@ const boss = {
 
 export default {
   id: 2, title: 'נמל חיפה', subtitle: 'שקיעה זהובה בין המכולות', hdri: 'sunset', music: 'stage2', target: 46000,
-  fog: [0xe8b48a, 60, 240], sun: { color: 0xffb46a, intensity: 3.2, dir: [-0.65, 0.32, 0.68] }, hemi: [0xffd6b0, 0x5a4a5a, 0.5],
-  exposure: 1.0, bloom: 0.45, bloomThreshold: 2.2, envIntensity: 1.0, dust: 0xc8b49a, rim: 0xffd2a0, rimStrength: 0.6,
+  fog: [0xd08a58, 90, 330], sun: { color: 0xffa050, intensity: 3.4, dir: [-0.3, 0.2, -0.9] }, hemi: [0xffc49a, 0x4a3646, 0.35],
+  envRotation: -98, hdriSun: { u: 0.6, elev: 6.2, minElev: 14 },
+  exposure: 0.82, bloom: 0.35, bloomThreshold: 3.2, envIntensity: 0.85, bgIntensity: 0.55, dust: 0xc8b49a, rim: 0xffd2a0, rimStrength: 0.6,
   start: { pos: [0, 0, 0], yaw: 0 },
   intro: { path: [[20, 30, 30], [8, 14, 4], [1, 4, -4], [0, 1.7, -2]], look: [0, 1.6, -26], duration: 6 },
   menuPath: [[0, 8, 20], [0, 6, -40]],

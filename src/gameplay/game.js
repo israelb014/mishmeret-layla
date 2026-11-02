@@ -60,7 +60,15 @@ export class Game {
     this.scene.fog = new THREE.Fog(def.fog[0], def.fog[1], Math.min(def.fog[2], this.renderer.preset.drawDistance));
     const r = this.renderer;
     r.sun.color.set(def.sun.color); r.sun.intensity = def.sun.intensity;
-    r.sunOffset.set(...def.sun.dir).normalize().multiplyScalar(60);
+    const rot = THREE.MathUtils.degToRad(def.envRotation || 0);
+    this.scene.backgroundRotation.set(0, rot, 0);
+    this.scene.environmentRotation.set(0, rot, 0);
+    if (def.hdriSun) {
+      // sun direction taken from the HDRI (equirect u / elevation), rotated with the sky
+      const a = (def.hdriSun.u - 0.5) * Math.PI * 2, e = THREE.MathUtils.degToRad(Math.max(def.hdriSun.elev, def.hdriSun.minElev ?? 12));
+      const t = new THREE.Vector3(Math.cos(a) * Math.cos(e), Math.sin(e), Math.sin(a) * Math.cos(e));
+      r.sunOffset.copy(t.applyAxisAngle(UP, -rot)).normalize().multiplyScalar(60);
+    } else r.sunOffset.set(...def.sun.dir).normalize().multiplyScalar(60);
     r.hemi.color.set(def.hemi?.[0] ?? 0xdfefff); r.hemi.groundColor.set(def.hemi?.[1] ?? 0x6b5a48); r.hemi.intensity = def.hemi?.[2] ?? 0.35;
     r.renderer.toneMappingExposure = def.exposure ?? 1;
     r.bloom.strength = def.bloom ?? 0.4;

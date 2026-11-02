@@ -61,8 +61,12 @@ if (only !== '--zones-only') {
   const shot = async (n) => { await p.waitForTimeout(1200); const f = `${OUT}/screen_${n}.png`; await p.screenshot({ path: f, timeout: 180000 }); report.screens.push(f); console.log('screen', n); };
   const click = async (sel) => { await p.click(sel, { timeout: 30000 }); };
   // loading screen
+  const cdp = await ctx.newCDPSession(p);
+  await cdp.send('Network.enable');
+  await cdp.send('Network.emulateNetworkConditions', { offline: false, latency: 40, downloadThroughput: 4 * 1024 * 1024 / 8, uploadThroughput: 1024 * 1024 / 8 });
   await p.goto(base, { waitUntil: 'commit' });
-  await p.waitForSelector('.load-ring', { timeout: 60000 }); await shot('01_loading');
+  await p.waitForSelector('.load-ring', { timeout: 60000 }); await p.waitForTimeout(6000); await shot('01_loading');
+  await cdp.send('Network.emulateNetworkConditions', { offline: false, latency: 0, downloadThroughput: -1, uploadThroughput: -1 });
   await p.waitForSelector('.menu', { timeout: 300000 }); await p.waitForTimeout(4000); await shot('02_menu');
   await click('[data-a=start]'); await shot('03_difficulty');
   await click('.back'); await click('[data-a=stages]'); await shot('04_stage_select');
