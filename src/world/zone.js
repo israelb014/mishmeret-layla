@@ -129,7 +129,7 @@ export class ZoneBuilder {
       geoPlane: (w, h) => this.geoPlane(w, h),
       glassPane: (pos, rotY, w, h) => {
         const m = new THREE.Mesh(this.geoPlane(w, h), this.glassMat);
-        m.position.copy(pos); m.rotation.y = rotY; m.renderOrder = 2;
+        m.position.copy(pos); m.rotation.y = rotY; m.renderOrder = 2; m.castShadow = false;
         dynGroup.add(m);
         this.addDestructible(zone, 'glass', m, { w, h });
         return m;
@@ -137,6 +137,7 @@ export class ZoneBuilder {
       bottle: pos => {
         const name = ctx.rand() < 0.5 ? 'bottle' : 'water_bottle';
         const o = game.prefabs.make(name); o.position.copy(pos);
+        o.traverse(m => { if (m.isMesh) m.castShadow = false; });
         dynGroup.add(o); this.addDestructible(zone, 'bottle', o, {});
         return o;
       },

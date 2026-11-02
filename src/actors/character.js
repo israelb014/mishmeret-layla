@@ -234,18 +234,18 @@ export class Character {
     if (this.weapon && this.weaponName !== 'grenade') {
       const box = new THREE.Box3().setFromObject(this.weapon);
       const c = box.getCenter(new THREE.Vector3()); const sz = box.getSize(new THREE.Vector3());
-      S.push({ part: 'weapon', a: c, b: c, r: Math.max(0.11, Math.min(0.3, sz.length() * 0.42)) });
+      S.push({ part: 'weapon', a: c, b: c, r: Math.max(0.1, Math.min(0.17, sz.length() * 0.35)) });
     }
   }
 
   // ray: THREE.Ray -> { part, t, point } nearest (weapon wins ties because it is tested first)
   hitTest(ray) {
     let best = null;
-    const order = ['weapon', 'head', 'torso', 'legs'];
+    const order = ['head', 'torso', 'legs', 'weapon'];
     for (const s of this.hitShapes) {
       const t = rayCapsule(ray, s.a, s.b, s.r);
       if (t == null) continue;
-      if (!best || t < best.t - 0.05 || (Math.abs(t - best.t) <= 0.05 && order.indexOf(s.part) < order.indexOf(best.part))) best = { part: s.part, t, point: ray.at(t, new THREE.Vector3()) };
+      if (!best || t < best.t - 0.03 || (Math.abs(t - best.t) <= 0.03 && order.indexOf(s.part) < order.indexOf(best.part))) best = { part: s.part, t, point: ray.at(t, new THREE.Vector3()) };
     }
     return best;
   }

@@ -1,0 +1,77 @@
+{
+  "results": {
+    "pistol_torso": {
+      "down": true,
+      "ammoUsed": 1,
+      "state": "dying"
+    },
+    "head": {
+      "down": true,
+      "heads": 1
+    },
+    "disarm": {
+      "state": "surrender",
+      "disarms": 1,
+      "hasWeapon": false,
+      "surrender": 0.66
+    },
+    "legs": {
+      "state": "kneel"
+    },
+    "heavy": {
+      "aliveAfterEachHit": [
+        true,
+        true,
+        false
+      ]
+    },
+    "shotgun": {
+      "down": true,
+      "shells": 5,
+      "weapon": "shotgun"
+    },
+    "magnum": {
+      "first": true,
+      "second": true
+    },
+    "mpistol": {
+      "used": 7,
+      "auto": true
+    },
+    "backToPistol": "pistol",
+    "emptyCallout": true,
+    "reloaded": 6,
+    "barrel": {
+      "exploded": true,
+      "enemyDown": true,
+      "bonus": 500
+    },
+    "carTyre": 1,
+    "carWindow": true,
+    "grenadeShot": true,
+    "grenadeHit": 0,
+    "shield": 3,
+    "crate": {
+      "broken": true,
+      "pickup": true,
+      "equipped": "shotgun"
+    },
+    "hostageHitPenalty": 1,
+    "hostageRescue": {
+      "takerDown": true,
+      "hostageFree": true
+    },
+    "signSwing": 1.27,
+    "glass": true,
+    "threatRing": {
+      "ringVisible": true,
+      "duration": 2.6
+    },
+    "enemyShot": 1,
+    "combo": {
+      "combo": 4,
+      "multiplier": 2
+    }
+  },
+  "errors": []
+}

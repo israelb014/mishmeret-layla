@@ -5,8 +5,8 @@ import path from 'node:path';
 import { execFileSync } from 'node:child_process';
 import { NodeIO, Document, PropertyType } from '@gltf-transform/core';
 import { ALL_EXTENSIONS } from '@gltf-transform/extensions';
-import { dedup, prune, weld, textureCompress, meshopt, mergeDocuments, resample, quantize, flatten, join, palette } from '@gltf-transform/functions';
-import { MeshoptEncoder, MeshoptDecoder } from 'meshoptimizer';
+import { dedup, prune, weld, textureCompress, meshopt, mergeDocuments, resample, quantize, flatten, join, palette, simplify } from '@gltf-transform/functions';
+import { MeshoptEncoder, MeshoptDecoder, MeshoptSimplifier } from 'meshoptimizer';
 import sharp from 'sharp';
 import * as THREE from 'three';
 import { CHARACTERS, ANIM_SOURCE, LIBS, TEXTURES, HDRIS, SOUNDS, MUSIC } from './assets-manifest.mjs';
@@ -17,14 +17,15 @@ const FFMPEG = 'node_modules/ffmpeg-static/ffmpeg';
 const what = process.argv[2] || 'all';
 const want = k => what === 'all' || what === k;
 
-await MeshoptEncoder.ready; await MeshoptDecoder.ready;
+await MeshoptEncoder.ready; await MeshoptDecoder.ready; await MeshoptSimplifier.ready;
 const io = new NodeIO().registerExtensions(ALL_EXTENSIONS).registerDependencies({ 'meshopt.encoder': MeshoptEncoder, 'meshopt.decoder': MeshoptDecoder });
 const mkdir = d => fs.mkdirSync(d, { recursive: true });
 const kb = f => (fs.statSync(f).size / 1024).toFixed(0) + 'KB';
 
-async function finalize(doc, file, { texSize = 1024, joinMeshes = false } = {}) {
+async function finalize(doc, file, { texSize = 1024, joinMeshes = false, simplifyRatio = 0 } = {}) {
   const steps = [joinMeshes ? dedup({ propertyTypes: [PropertyType.ACCESSOR, PropertyType.MESH, PropertyType.TEXTURE] }) : dedup(), prune({ keepAttributes: false })];
   if (joinMeshes) steps.push(flatten(), join({ keepNamed: false }), prune());
+  if (simplifyRatio) steps.push(weld(), simplify({ simplifier: MeshoptSimplifier, ratio: simplifyRatio, error: 0.004 }));
   await doc.transform(
     ...steps, weld(),
     textureCompress({ encoder: sharp, targetFormat: 'webp', resize: [texSize, texSize], quality: 82 }),
@@ -84,7 +85,7 @@ if (want('libs')) {
     for (const acc of target.getRoot().listAccessors()) acc.setBuffer(main);
     for (const b of buffers.slice(1)) b.dispose();
     for (const s of target.getRoot().listScenes()) void s;
-    await finalize(target, `${OUT}/libs/${lib}.glb`, { texSize: lib === 'city' ? 1024 : 512, joinMeshes: true });
+    await finalize(target, `${OUT}/libs/${lib}.glb`, { texSize: lib === 'city' ? 1024 : 512, joinMeshes: true, simplifyRatio: lib === 'city' ? 0.3 : 0 });
   }
 }
 

@@ -113,7 +113,7 @@ export class Game {
 
   disposeBehind(i) {
     for (const z of [...this.zones]) {
-      if (z.index < i - 1 || z.index > i + 2) { z.dispose(); this.zones.splice(this.zones.indexOf(z), 1); }
+      if (z.index < i - 1 || z.index > i + 1) { z.dispose(); this.zones.splice(this.zones.indexOf(z), 1); }
     }
   }
 
@@ -230,6 +230,7 @@ export class Game {
 
   startEncounter(z) {
     const def = z.def;
+    for (const old of [...this.zones]) if (old.index < z.index && !def.travel) { old.dispose(); this.zones.splice(this.zones.indexOf(old), 1); }
     this.encounter = { zone: z, wave: -1, waveTime: 0, pending: [], spawned: [], done: false, startTime: this.stageTime };
     if (def.boss) {
       this.audio.playMusic('boss');

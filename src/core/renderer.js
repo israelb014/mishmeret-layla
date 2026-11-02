@@ -8,9 +8,9 @@ import { OutputPass } from 'three/examples/jsm/postprocessing/OutputPass.js';
 import { ShaderPass } from 'three/examples/jsm/postprocessing/ShaderPass.js';
 
 export const PRESETS = {
-  low: { shadowSize: 1024, propShadows: false, bloom: false, smaa: false, pixelRatio: 0.85, drawDistance: 120, texScale: 0.5, shadows: true },
-  medium: { shadowSize: 1024, propShadows: false, bloom: true, smaa: false, pixelRatio: 1, drawDistance: 170, texScale: 1, shadows: true },
-  high: { shadowSize: 2048, propShadows: true, bloom: true, smaa: true, pixelRatio: 1.5, drawDistance: 260, texScale: 1, shadows: true },
+  low: { shadowEvery: 3, shadowSize: 1024, propShadows: false, bloom: false, smaa: false, pixelRatio: 0.85, drawDistance: 120, texScale: 0.5, shadows: true },
+  medium: { shadowEvery: 2, shadowSize: 1024, propShadows: false, bloom: true, smaa: false, pixelRatio: 1, drawDistance: 170, texScale: 1, shadows: true },
+  high: { shadowEvery: 1, shadowSize: 2048, propShadows: true, bloom: true, smaa: true, pixelRatio: 1.5, drawDistance: 260, texScale: 1, shadows: true },
 };
 
 // Vignette + damage flash, applied in linear space before tone mapping output.
@@ -43,6 +43,9 @@ export class Renderer {
     this.renderer.toneMappingExposure = 1.0;
     this.renderer.shadowMap.enabled = true;
     this.renderer.shadowMap.type = THREE.PCFShadowMap;
+    this.renderer.shadowMap.autoUpdate = false;
+    this.frame = 0;
+    this.renderer.info.autoReset = false;
     container.appendChild(this.renderer.domElement);
 
     this.scene = new THREE.Scene();
@@ -111,6 +114,9 @@ export class Renderer {
   damageFlash(color = 0xff2010, amount = 0.55) { this.vignette.uniforms.flashColor.value.set(color); this.flash = Math.max(this.flash, amount); }
 
   render(dt) {
+    this.renderer.info.reset();
+    this.frame++;
+    if (this.frame % (this.preset.shadowEvery || 1) === 0) this.renderer.shadowMap.needsUpdate = true;
     // camera shake (applied as a temporary offset)
     const cam = this.camera;
     this._shake.set(0, 0, 0);

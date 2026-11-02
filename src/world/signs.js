@@ -53,7 +53,7 @@ export function signBoard(text, width, height, style = {}) {
     emissive: style.emissive ? 0xffffff : 0x000000, emissiveMap: style.emissive ? tex : null, emissiveIntensity: style.emissive || 0,
   });
   const m = new THREE.Mesh(new THREE.PlaneGeometry(width, height), mat);
-  m.castShadow = false; m.receiveShadow = true;
+  m.castShadow = false; m.receiveShadow = false;
   m.userData.sign = text;
   return m;
 }

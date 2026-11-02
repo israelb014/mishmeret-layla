@@ -174,7 +174,7 @@ class App {
   measure(dt) {
     const f = this.fps;
     f.frames++; f.t += dt;
-    if (f.t >= 0.5) { f.value = f.frames / f.t; f.frames = 0; f.t = 0; if (this.fpsEl) this.fpsEl.textContent = `${f.value.toFixed(0)} FPS · ${this.renderer.presetName} · ${this.renderer.renderer.info.render.calls} calls`; }
+    if (f.t >= 0.5) { f.value = f.frames / f.t; f.frames = 0; f.t = 0; if (this.fpsEl) this.fpsEl.textContent = `${f.value.toFixed(0)} FPS · ${this.renderer.presetName} · ${this.renderer.renderer.info.render.calls} calls · ${(this.renderer.renderer.info.render.triangles / 1000).toFixed(0)}k tris`; window.__perf = { fps: f.value, calls: this.renderer.renderer.info.render.calls, tris: this.renderer.renderer.info.render.triangles, preset: this.renderer.presetName }; }
     const p = this.autoProbe;
     if (p && this.game && (this.mode === 'menu' || this.mode === 'game')) {
       p.t += dt; p.frames++;
