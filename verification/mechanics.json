@@ -35,7 +35,7 @@
       "second": true
     },
     "mpistol": {
-      "used": 7,
+      "used": 6,
       "auto": true
     },
     "backToPistol": "pistol",
@@ -49,8 +49,8 @@
     "carTyre": 1,
     "carWindow": true,
     "grenadeShot": true,
-    "grenadeHit": 0,
-    "shield": 3,
+    "grenadeHit": 1,
+    "shield": 4,
     "crate": {
       "broken": true,
       "pickup": true,
@@ -61,7 +61,7 @@
       "takerDown": true,
       "hostageFree": true
     },
-    "signSwing": 1.27,
+    "signSwing": 1.22,
     "glass": true,
     "threatRing": {
       "ringVisible": true,

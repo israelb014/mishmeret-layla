@@ -59,7 +59,7 @@ class App {
     this.loop();
     // background-load the later stages (first stage is playable already)
     this.bgLoad = (async () => { await this.assets.loadAll(GROUPS.stage2); await this.assets.loadAll(GROUPS.stage3); })();
-    if (import.meta.env.DEV) this.setupDev();
+    if (import.meta.env.DEV) await import('./core/dev.js').then(d => d.installDev(this));
     const q = new URLSearchParams(location.search);
     if (import.meta.env.DEV && q.has('stage')) {
       await this.bgLoad;
@@ -174,7 +174,7 @@ class App {
   measure(dt) {
     const f = this.fps;
     f.frames++; f.t += dt;
-    if (f.t >= 0.5) { f.value = f.frames / f.t; f.frames = 0; f.t = 0; if (this.fpsEl) this.fpsEl.textContent = `${f.value.toFixed(0)} FPS · ${this.renderer.presetName} · ${this.renderer.renderer.info.render.calls} calls · ${(this.renderer.renderer.info.render.triangles / 1000).toFixed(0)}k tris`; window.__perf = { fps: f.value, calls: this.renderer.renderer.info.render.calls, tris: this.renderer.renderer.info.render.triangles, preset: this.renderer.presetName }; }
+    if (f.t >= 0.5) { f.value = f.frames / f.t; f.frames = 0; f.t = 0; if (this.fpsEl) this.fpsEl.textContent = `${f.value.toFixed(0)} FPS · ${this.renderer.presetName} · ${this.renderer.renderer.info.render.calls} calls · ${(this.renderer.renderer.info.render.triangles / 1000).toFixed(0)}k tris`; if (import.meta.env.DEV) window.__perf = { fps: f.value, calls: this.renderer.renderer.info.render.calls, tris: this.renderer.renderer.info.render.triangles, preset: this.renderer.presetName }; }
     const p = this.autoProbe;
     if (p && this.game && (this.mode === 'menu' || this.mode === 'game')) {
       p.t += dt; p.frames++;
@@ -187,21 +187,6 @@ class App {
         this.renderer.applyPreset(pick);
       }
     }
-  }
-
-  setupDev() {
-    if (!import.meta.env.DEV) return;
-    const q = new URLSearchParams(location.search);
-    this.fpsEl = document.createElement('div');
-    this.fpsEl.className = 'dev-fps';
-    this.fpsEl.hidden = !q.has('fps');
-    document.body.appendChild(this.fpsEl);
-    window.addEventListener('keydown', e => { if (e.code === 'F1') { e.preventDefault(); this.fpsEl.hidden = !this.fpsEl.hidden; } });
-    this.game.devAuto = q.has('auto');
-    this.game.devGod = q.has('god');
-    this.game.devAim = q.get('aim');
-    this.game.forcedBranch = q.get('branch');
-    window.__app = this; window.__THREE = THREE;
   }
 }
 

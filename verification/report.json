@@ -13,8 +13,8 @@
       "tag": "s1z2",
       "file": "verification/stage1_zone02_1-2.png",
       "id": "1-2",
-      "enemies": 1,
-      "kills": 2
+      "enemies": 2,
+      "kills": 3
     },
     {
       "tag": "s1z3",
@@ -48,8 +48,8 @@
       "tag": "s1z7l",
       "file": "verification/stage1_zone07_left_1-7.png",
       "id": "1-7",
-      "enemies": 3,
-      "kills": 2
+      "enemies": 2,
+      "kills": 1
     },
     {
       "tag": "s1z8l",
@@ -84,7 +84,7 @@
       "file": "verification/stage1_zone07_right_1-7.png",
       "id": "1-7",
       "enemies": 3,
-      "kills": 2
+      "kills": 3
     },
     {
       "tag": "s1z8r",
@@ -103,15 +103,15 @@
     {
       "tag": "s2z2",
       "file": "verification/stage2_zone02_2-2.png",
-      "id": "2-3",
-      "enemies": 2,
+      "id": "2-2",
+      "enemies": 1,
       "kills": 6
     },
     {
       "tag": "s2z3",
       "file": "verification/stage2_zone03_2-3.png",
       "id": "2-3",
-      "enemies": 2,
+      "enemies": 4,
       "kills": 5
     },
     {
@@ -154,7 +154,7 @@
       "file": "verification/stage2_zone04_right_2-4ב.png",
       "id": "2-4ב",
       "enemies": 3,
-      "kills": 2
+      "kills": 1
     },
     {
       "tag": "s2z5r",
@@ -216,8 +216,8 @@
       "tag": "s3z5l",
       "file": "verification/stage3_zone05_left_3-5א.png",
       "id": "3-5א",
-      "enemies": 4,
-      "kills": 3
+      "enemies": 1,
+      "kills": 2
     },
     {
       "tag": "s3z6l",
@@ -231,7 +231,7 @@
       "file": "verification/stage3_zone07_left_3-7.png",
       "id": "3-7",
       "enemies": 3,
-      "kills": 5
+      "kills": 3
     },
     {
       "tag": "s3z8l",
@@ -252,7 +252,7 @@
       "file": "verification/stage3_zone05_right_3-5ב.png",
       "id": "3-6",
       "enemies": 1,
-      "kills": 4
+      "kills": 3
     },
     {
       "tag": "s3z6r",
@@ -316,7 +316,7 @@
         "score": 12345,
         "stage": 3,
         "rank": "A",
-        "date": 1793578445205
+        "date": 1793579487641
       }
     ]
   },
